@@ -396,14 +396,14 @@ class BuildParametersContext extends AbstractExtensibleContext {
     void buildSelectorParameter(String parameterName,
                                 @DslContext(BuildSelectorParameterContext) Closure buildSelectorParameterClosure) {
         checkParameterName(parameterName)
-        BuildSelectorParameterContext buildSelectorParameterContext = new BuildSelectorParameterContext(jobManagement, item)
-        ContextHelper.executeInContext(buildSelectorParameterClosure, buildSelectorParameterContext)
+        BuildSelectorParameterContext selectorParameterContext = new BuildSelectorParameterContext(jobManagement, item)
+        ContextHelper.executeInContext(buildSelectorParameterClosure, selectorParameterContext)
         Node selectorParameterNode = new Node(null, 'hudson.plugins.copyartifact.BuildSelectorParameter')
         selectorParameterNode.appendNode('name', parameterName)
-        if (buildSelectorParameterContext.description != null) {
-            selectorParameterNode.appendNode('description', buildSelectorParameterContext.description)
+        if (selectorParameterContext.description != null) {
+            selectorParameterNode.appendNode('description', selectorParameterContext.description)
         }
-        selectorParameterNode.append(buildSelectorParameterContext.defaultSelectorContext.selector)
+        selectorParameterNode.append(selectorParameterContext.defaultSelectorContext.selector)
         buildParameterNodes[parameterName] = selectorParameterNode
     }
 

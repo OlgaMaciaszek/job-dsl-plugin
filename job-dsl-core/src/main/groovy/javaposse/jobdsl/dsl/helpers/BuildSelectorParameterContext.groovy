@@ -9,22 +9,22 @@ import javaposse.jobdsl.dsl.helpers.step.CopyArtifactSelectorContext
 
 class BuildSelectorParameterContext extends AbstractContext {
 
-	private static final String DEFAULT_SELECTOR = 'defaultSelector'
+    private static final String DEFAULT_SELECTOR = 'defaultSelector'
 
-	String description
-	final CopyArtifactSelectorContext defaultSelectorContext
+    String description
+    final CopyArtifactSelectorContext defaultSelectorContext
 
-	protected BuildSelectorParameterContext(JobManagement jobManagement, Item item) {
-		super(jobManagement)
-		defaultSelectorContext = new CopyArtifactSelectorContext(jobManagement, item)
-	}
+    protected BuildSelectorParameterContext(JobManagement jobManagement, Item item) {
+        super(jobManagement)
+        defaultSelectorContext = new CopyArtifactSelectorContext(jobManagement, item)
+    }
 
-	void description(String description) {
-		this.description = description
-	}
+    void description(String description) {
+        this.description = description
+    }
 
-	void defaultBuildSelector(@DslContext(CopyArtifactSelectorContext) Closure defaultSelectorClosure) {
-		defaultSelectorContext.classifier(DEFAULT_SELECTOR)
-		ContextHelper.executeInContext(defaultSelectorClosure, defaultSelectorContext)
-	}
+    void defaultBuildSelector(@DslContext(CopyArtifactSelectorContext) Closure defaultSelectorClosure) {
+        defaultSelectorContext.classifier(DEFAULT_SELECTOR)
+        ContextHelper.executeInContext(defaultSelectorClosure, defaultSelectorContext)
+    }
 }
