@@ -1,5 +1,6 @@
 package javaposse.jobdsl.dsl.helpers
 
+import groovy.transform.PackageScope
 import javaposse.jobdsl.dsl.AbstractExtensibleContext
 import javaposse.jobdsl.dsl.ContextHelper
 import javaposse.jobdsl.dsl.ContextType
@@ -391,6 +392,21 @@ class BuildParametersContext extends AbstractExtensibleContext {
                 }
     }
 
+    @RequiresPlugin(id = 'copyartifact', minimumVersion = '1.31')
+    void buildSelectorParameter(String parameterName,
+                                @DslContext(BuildSelectorParameterContext) Closure buildSelectorParameterClosure) {
+        checkParameterName(parameterName)
+        BuildSelectorParameterContext selectorParameterContext = new BuildSelectorParameterContext(jobManagement, item)
+        ContextHelper.executeInContext(buildSelectorParameterClosure, selectorParameterContext)
+        Node selectorParameterNode = new Node(null, 'hudson.plugins.copyartifact.BuildSelectorParameter')
+        selectorParameterNode.appendNode('name', parameterName)
+        if (selectorParameterContext.description != null) {
+            selectorParameterNode.appendNode('description', selectorParameterContext.description)
+        }
+        selectorParameterNode.append(selectorParameterContext.defaultSelectorContext.selector)
+        buildParameterNodes[parameterName] = selectorParameterNode
+    }
+
     private void checkParameterName(String name) {
         checkNotNullOrEmpty(name, 'parameterName cannot be null')
         checkArgument(!buildParameterNodes.containsKey(name), "parameter ${name} already defined")
@@ -417,4 +433,13 @@ class BuildParametersContext extends AbstractExtensibleContext {
         }
         node
     }
+
+    /**
+     * @since 1.47
+     */
+    @PackageScope
+    Item getItem() {
+        super.item
+    }
+
 }
