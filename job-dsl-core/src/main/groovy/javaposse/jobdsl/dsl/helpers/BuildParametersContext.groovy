@@ -392,6 +392,11 @@ class BuildParametersContext extends AbstractExtensibleContext {
                 }
     }
 
+    /**
+     * Defines a parameter that allows to specify a build selector for the copy artifact plugin.
+     *
+     * @since 1.67
+     */
     @RequiresPlugin(id = 'copyartifact', minimumVersion = '1.31')
     void buildSelectorParameter(String parameterName,
                                 @DslContext(BuildSelectorParameterContext) Closure buildSelectorParameterClosure) {

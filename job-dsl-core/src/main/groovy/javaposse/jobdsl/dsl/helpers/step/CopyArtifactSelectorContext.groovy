@@ -24,6 +24,11 @@ class CopyArtifactSelectorContext extends AbstractExtensibleContext {
         selector = ContextHelper.toNamedNode('selector', node)
     }
 
+    /**
+     * Sets a classifier name to be used in the selector xml node.
+     *
+     * @param classifier String value of the classifier
+     */
     void classifier(String classifier) {
         this.classifier = classifier
     }

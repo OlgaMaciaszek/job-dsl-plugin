@@ -19,10 +19,17 @@ class BuildSelectorParameterContext extends AbstractContext {
         defaultSelectorContext = new CopyArtifactSelectorContext(jobManagement, item)
     }
 
+    /**
+     * Specifies the parameter description.
+     * @param description String value of the description
+     */
     void description(String description) {
         this.description = description
     }
 
+    /**
+     * Specifies the default build selector.
+     */
     void defaultBuildSelector(@DslContext(CopyArtifactSelectorContext) Closure defaultSelectorClosure) {
         defaultSelectorContext.classifier(DEFAULT_SELECTOR)
         ContextHelper.executeInContext(defaultSelectorClosure, defaultSelectorContext)
