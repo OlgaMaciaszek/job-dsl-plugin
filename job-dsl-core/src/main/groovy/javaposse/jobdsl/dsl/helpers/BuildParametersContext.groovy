@@ -438,13 +438,4 @@ class BuildParametersContext extends AbstractExtensibleContext {
         }
         node
     }
-
-    /**
-     * @since 1.47
-     */
-    @PackageScope
-    Item getItem() {
-        super.item
-    }
-
 }
