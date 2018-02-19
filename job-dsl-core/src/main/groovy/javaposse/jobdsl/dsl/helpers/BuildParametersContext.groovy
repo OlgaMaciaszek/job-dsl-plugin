@@ -398,8 +398,8 @@ class BuildParametersContext extends AbstractExtensibleContext {
      * @since 1.67
      */
     @RequiresPlugin(id = 'copyartifact', minimumVersion = '1.31')
-    void buildSelectorParameter(String parameterName,
-                                @DslContext(BuildSelectorParameterContext) Closure buildSelectorParameterClosure) {
+    void buildSelectorParam(String parameterName,
+                            @DslContext(BuildSelectorParameterContext) Closure buildSelectorParameterClosure) {
         checkParameterName(parameterName)
         BuildSelectorParameterContext selectorParameterContext = new BuildSelectorParameterContext(jobManagement, item)
         ContextHelper.executeInContext(buildSelectorParameterClosure, selectorParameterContext)

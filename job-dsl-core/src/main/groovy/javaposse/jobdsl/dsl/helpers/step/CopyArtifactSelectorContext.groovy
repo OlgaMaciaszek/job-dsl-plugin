@@ -11,26 +11,18 @@ import javaposse.jobdsl.dsl.RequiresPlugin
 @ContextType('hudson.plugins.copyartifact.BuildSelector')
 class CopyArtifactSelectorContext extends AbstractExtensibleContext {
 
-    String classifier = 'selector'
+    final String classifier
     Node selector
 
-    CopyArtifactSelectorContext(JobManagement jobManagement, Item item) {
+    CopyArtifactSelectorContext(JobManagement jobManagement, Item item, String classifier = 'selector') {
         super(jobManagement, item)
+        this.classifier = classifier
         latestSuccessful()
     }
 
     @Override
     protected void addExtensionNode(Node node) {
         selector = ContextHelper.toNamedNode('selector', node)
-    }
-
-    /**
-     * Sets a classifier name to be used in the selector xml node.
-     *
-     * @param classifier String value of the classifier
-     */
-    void classifier(String classifier) {
-        this.classifier = classifier
     }
 
     /**

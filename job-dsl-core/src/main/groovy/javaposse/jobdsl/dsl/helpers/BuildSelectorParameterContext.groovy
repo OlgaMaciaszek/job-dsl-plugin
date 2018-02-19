@@ -12,11 +12,11 @@ class BuildSelectorParameterContext extends AbstractContext {
     private static final String DEFAULT_SELECTOR = 'defaultSelector'
 
     String description
-    final CopyArtifactSelectorContext defaultSelectorContext
+    CopyArtifactSelectorContext defaultSelectorContext
 
     protected BuildSelectorParameterContext(JobManagement jobManagement, Item item) {
         super(jobManagement)
-        defaultSelectorContext = new CopyArtifactSelectorContext(jobManagement, item)
+        defaultSelectorContext = new CopyArtifactSelectorContext(jobManagement, item, DEFAULT_SELECTOR)
     }
 
     /**
@@ -31,7 +31,6 @@ class BuildSelectorParameterContext extends AbstractContext {
      * Specifies the default build selector.
      */
     void defaultBuildSelector(@DslContext(CopyArtifactSelectorContext) Closure defaultSelectorClosure) {
-        defaultSelectorContext.classifier(DEFAULT_SELECTOR)
         ContextHelper.executeInContext(defaultSelectorClosure, defaultSelectorContext)
     }
 }
